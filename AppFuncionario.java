@@ -4,8 +4,8 @@ public class AppFuncionario {
     private Empresa empresa;
     Scanner in = new Scanner(System.in);
 
-    public AppFuncionario() {
-        empresa = new Empresa();
+    public AppFuncionario(Empresa empresa) {
+        this.empresa = empresa;
     }
 
     public void executar() {
@@ -14,12 +14,12 @@ public class AppFuncionario {
             menu();
             System.out.print("Opção desejada: ");
             opcao = in.nextInt();
-            switch (opcao) {  // Criar metodos que tenha os cases e chama-los, corretamente no Switch.
+            switch (opcao) {
                 case 1:
                     cadastrarFuncionario();
                     break;
                 case 2:
-                    renomearFuncionaio();
+                    renomearFuncionario();
                     break;
                 case 3:
                     alterarEmail();
@@ -30,41 +30,34 @@ public class AppFuncionario {
         } while (opcao != 0);
     }
 
-
     private void menu() {
-        System.out.println("///////////////////////////////////");
-        System.out.println("Menu do funcionário:");
-        System.out.println("///////////////////////////////////");
-        // Menu criado para o bom gerenciameto dos funcionarios classes
-        System.out.println(
-                "1-Cadastrar funcionario \n" +
-                        "2-Alterar nome de funcionario \n" +
-                        "3-Alterar email de funcionario \n" +
-                        "0- Sair \n"
-        );
+        System.out.println("Menu dos Funcionários: ");
+        System.out.println("1 - Cadastrar funcionario");
+        System.out.println("2 - Renomear um funcionario");
+        System.out.println("3 - Alterar email de funcionario");
+        System.out.println("0 - Sair");
     }
 
     private void cadastrarFuncionario() {
         in.nextLine();
-        System.out.println("Informe a nome do Funcionário: ");
+        System.out.println("Informe o nome do Funcionario: ");
         String nome = in.nextLine();
-        System.out.println("Informe a email do Funcionário: ");
+        System.out.println("Informe o email do Funcionario: ");
         String email = in.nextLine();
 
         Funcionario f = new Funcionario(nome, email);
-        empresa.CadastrarFuncionario(f);
+        empresa.cadastrarFuncionario(f);
 
-        System.out.println("Funcionário cadastrado com sucesso! Matrícula: " + f.getMatricula());
+        System.out.println("Funcionario cadastrado com sucesso! Matrícula: " + f.getMatricula());
     }
 
-
-    private void renomearFuncionaio() {
+    private void renomearFuncionario() {
         in.nextLine();
-        System.out.println("Informe a matricula do funcionário que deseja renomear: ");
+        System.out.println("Informe a matrícula do funcionário que deseja renomear: ");
         int matricula = in.nextInt();
-        Funcionario aux = empresa.BuscarFuncionario(matricula);
+        Funcionario aux = empresa.buscarFuncionario(matricula);
         if (aux == null) {
-            System.out.println("funcionário não encontrado");
+            System.out.println("Funcionário não encontrado!");
         } else {
             System.out.println("Informe o novo nome: ");
             in.nextLine();
@@ -76,11 +69,12 @@ public class AppFuncionario {
 
     private void alterarEmail() {
         in.nextLine();
-        System.out.println("Informe a matricula do funcionário que deseja alterar o email: ");
+        System.out.println("Informe a matrícula do funcionário que deseja alterar o email: ");
         int matricula = in.nextInt();
-        Funcionario aux2 = empresa.BuscarFuncionario(matricula);
+
+        Funcionario aux2 = empresa.buscarFuncionario(matricula);
         if (aux2 == null) {
-            System.out.println("Funcionário não encontrado");
+            System.out.println("Funcionário não encontrado!");
         } else {
             System.out.println("Informe o novo email: ");
             in.nextLine();

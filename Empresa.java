@@ -9,35 +9,44 @@ public class Empresa {
         equipamentos = new ArrayList<>();
     }
 
-    public void cadastrarFuncionario(Funcionario f) {
-        funcionarios.add(f);
+    public ArrayList<Funcionario> getFuncionarios() {
+        return funcionarios;
     }
 
-    public Funcionario buscarFuncionario(String matricula) {
+    public Funcionario buscarFuncionario(int matricula) {
         for (Funcionario aux : funcionarios) {
-            if (aux.getMatricula().equals(matricula)) {
+            if (aux.getMatricula() == matricula) {
                 return aux;
             }
         }
         return null;
     }
 
-    public void renomearFuncionario(Funcionario f, String novoNome) {
-        f.setNome(novoNome);
+    public Funcionario buscarFuncionarioPorNome(String nome) {
+        if (nome == null || nome.trim().isEmpty()) {
+            System.out.println("Nome inválido!");
+            return null;
+        }
+        for (Funcionario aux : funcionarios) {
+            if (aux.getNome().equalsIgnoreCase(nome)) {
+                return aux;
+            }
+        }
+        return null;
     }
 
-    public void alterarEmail(Funcionario f, String email) {
-        f.setEmail(email);
+    public void cadastrarFuncionario(Funcionario f) {
+        funcionarios.add(f);
     }
 
     public void cadastrarEquipamento(Equipamento e) {
         equipamentos.add(e);
     }
 
-    public Equipamento buscarEquipamento(String id) {
-        for (Equipamento eq : equipamentos) {
-            if (eq.getId().equals(id)) {
-                return eq;
+    public Equipamento buscarEquipamento(int id) {
+        for (Equipamento aux : equipamentos) {
+            if (aux.getId() == id) {
+                return aux;
             }
         }
         return null;
@@ -47,7 +56,17 @@ public class Empresa {
         e.setDescricao(novaDescricao);
     }
 
-    public void definirIndisponivel(Equipamento e) {
-        e.setDisponivel(false);
+    public String verificaTipo(String tipoEquipamento) {
+        if ("Fixo".equalsIgnoreCase(tipoEquipamento)) {
+            return "Equipamento Fixo";
+        } else if ("Móvel".equalsIgnoreCase(tipoEquipamento)) {
+            return "Equipamento Móvel";
+        } else {
+            return "Tipo de equipamento não existente!";
+        }
+    }
+
+    public String verificaDisponibilidade(Equipamento equipamento) {
+        return equipamento.getDisponibilidade();
     }
 }

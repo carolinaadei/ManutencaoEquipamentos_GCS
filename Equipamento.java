@@ -1,28 +1,35 @@
 public class Equipamento {
-    private String id;
-    private String nome;
+    private int id;
+    private String nomeCurto;
     private String descricao;
     private String dataAquisicao;
     private double valorAquisicao;
     private String funcionarioResponsavel;
-    private boolean disponivel;
+    private String tipoEquipamento;
+    private static int contadorId = 1;
+    private String disponibilidade = "";
 
-    public Equipamento(String id, String nome, String descricao, String dataAquisicao, double valorAquisicao, String funcionarioResponsavel) {
-        this.id = id;
-        this.nome = nome;
+    public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao, String funcionarioResponsavel, String tipoEquipamento) {
+        this.id = contadorId++;
+        this.nomeCurto = nomeCurto;
         this.descricao = descricao;
         this.dataAquisicao = dataAquisicao;
         this.valorAquisicao = valorAquisicao;
         this.funcionarioResponsavel = funcionarioResponsavel;
-        this.disponivel = true; // Equipamento começa como disponível
+        this.tipoEquipamento = tipoEquipamento;
+        this.disponibilidade = "Disponível";
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeCurto() {
+        return nomeCurto;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getDescricao() {
@@ -41,16 +48,15 @@ public class Equipamento {
         return funcionarioResponsavel;
     }
 
-    public boolean isDisponivel() {
-        return disponivel;
+    public String getTipoEquipamento() {
+        return tipoEquipamento;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public String getDisponibilidade() {
+        return disponibilidade;
     }
 
-    public void setDisponivel(boolean disponivel) {
-        this.disponivel = disponivel;
+    public void setDisponibilidade(String disponibilidade) {
+        this.disponibilidade = disponibilidade;
     }
 }
-
