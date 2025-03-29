@@ -9,7 +9,6 @@ public class Empresa {
         equipamentos = new ArrayList<>();
     }
 
-    // Gerenciamento de Funcionários
     public void cadastrarFuncionario(Funcionario f) {
         funcionarios.add(f);
     }
@@ -31,7 +30,6 @@ public class Empresa {
         f.setEmail(email);
     }
 
-  
     public void cadastrarEquipamento(Equipamento e) {
         equipamentos.add(e);
     }
