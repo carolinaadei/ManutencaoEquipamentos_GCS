@@ -1,23 +1,36 @@
 public class Equipamento {
+    public static Funcionario funcionarioResponsavel;
     private int id;
-    private String nomeCurto;
+    private static String nomeCurto;
     private String descricao;
     private String dataAquisicao;
-    private double valorAquisicao;
-    private String funcionarioResponsavel;
-    private String tipoEquipamento;
+    private final double valorAquisicao;
+    private final String tipoEquipamento;
     private static int contadorId = 1;
-    private String disponibilidade = "";
+    private String disponibilidade;
+    private boolean manutencao = false;
 
-    public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao, String funcionarioResponsavel, String tipoEquipamento) {
+    public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao, Funcionario funcionarioResponsavel, String tipoEquipamento) {
         this.id = contadorId++;
         this.nomeCurto = nomeCurto;
         this.descricao = descricao;
         this.dataAquisicao = dataAquisicao;
+        validarData(dataAquisicao);
         this.valorAquisicao = valorAquisicao;
         this.funcionarioResponsavel = funcionarioResponsavel;
         this.tipoEquipamento = tipoEquipamento;
-        this.disponibilidade = "Disponível";
+        this.disponibilidade = disponibilidade;
+        this.manutencao = manutencao;
+    }
+
+    private void validarData(String dataAquisicao) {
+        if (!dataAquisicao.matches("\\d{2}[/.]\\d{2}[/.]\\d{4}")) {
+            throw new IllegalArgumentException("Data de aquisição deve estar no formato 00/00/0000 ou 00.00.0000");
+        }
+    }
+
+    public void setDisponibilidade(String disponibilidade) {
+        this.disponibilidade = disponibilidade;
     }
 
     public int getId() {
@@ -26,10 +39,6 @@ public class Equipamento {
 
     public String getNomeCurto() {
         return nomeCurto;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
     public String getDescricao() {
@@ -45,6 +54,10 @@ public class Equipamento {
     }
 
     public String getFuncionarioResponsavel() {
+        return valorAquisicao;
+    }
+
+    public Funcionario getFuncionarioResponsavel() {
         return funcionarioResponsavel;
     }
 
@@ -52,11 +65,17 @@ public class Equipamento {
         return tipoEquipamento;
     }
 
-    public String getDisponibilidade() {
+    public String getDisponibilidade() 
+
         return disponibilidade;
     }
 
-    public void setDisponibilidade(String disponibilidade) {
-        this.disponibilidade = disponibilidade;
+    public boolean isEmManutencao() {
+
+        return manutencao;
+    }
+    public void setEmManutencao(boolean manutencao) {
+
+        this.manutencao = manutencao;
     }
 }

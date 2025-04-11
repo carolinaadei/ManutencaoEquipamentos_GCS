@@ -1,8 +1,11 @@
+  Semana 3 do trabalho de GCS: 
+  
+  Criação de novas manutenções desenvolvido por Bruno Dutra Prudencio;
 
-  Semana 2 do trabalho de GCS: 
+  Geração do relatório sobre equipamentos desenvolvido por Carolina de Souza Gonçalves;
 
-  Localizações de Funcionário e de Equipamentos desenvolvido por: Ana Clara Purper da Silva e Bianca Hack Piassini;
+  Atualização dos pedidos de manutenção desenvolvido por Sthefany Marques da Fonseca;
 
-  Ajudantes da Semana: Bruno Dutra Prudencio e Samantha Martins;
+  Ajudantes da semana: Ana Clara Purper da Silva e ;
 
-  Revisado por Carolina de Souza Gonçalves;
+  Revisado por Carolina de Souza Gonçalves e Sthefany Marques da Fonseca;
