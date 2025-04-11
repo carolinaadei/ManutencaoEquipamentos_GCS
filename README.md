@@ -4,4 +4,6 @@
 
   Classe de equipamentos desenvolvida por Marina Lenz Hostyn Dorneles;
 
+  Ajudantes da Semana: Sthefany Marques da Fonseca e Cauã Bemfica Macedo;
+
   Revisado por Carolina de Souza Gonçalves;
