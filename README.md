@@ -1,9 +1,8 @@
-  Semana 1 do trabalho de GCS: 
 
-  Classe de funcionários desenvolvida por Tarciso Mota Ney da Silva ;
+  Semana 2 do trabalho de GCS: 
 
-  Classe de equipamentos desenvolvida por Marina Lenz Hostyn Dorneles;
+  Localizações de Funcionário e de Equipamentos desenvolvido por: Ana Clara Purper da Silva e Bianca Hack Piassini;
 
-  Ajudantes da Semana: Sthefany Marques da Fonseca e Cauã Bemfica Macedo;
+  Ajudantes da Semana: Bruno Dutra Prudencio e Samantha Martins;
 
   Revisado por Carolina de Souza Gonçalves;
