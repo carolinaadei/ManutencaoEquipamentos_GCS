@@ -6,4 +6,6 @@
 
   Atualização dos pedidos de manutenção desenvolvido por  Sthefany Marques da Fonseca;
 
+  Ajudantes da semana: Tarciso Mota Ney da Silva e Ana Clara Purper da Silva;
+
   Revisado por Carolina de Souza Gonçalves;
