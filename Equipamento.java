@@ -1,15 +1,16 @@
 public class Equipamento {
     private int id;
-    private String nomeCurto;
+    private static String nomeCurto;
     private String descricao;
     private String dataAquisicao;
-    private double valorAquisicao;
-    private String funcionarioResponsavel;
-    private String tipoEquipamento;
+    private final double valorAquisicao;
+    private Funcionario funcionarioResponsavel;
+    private final String tipoEquipamento;
     private static int contadorId = 1;
     private String disponibilidade = "";
 
-    public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao, String funcionarioResponsavel, String tipoEquipamento) {
+    public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao, Funcionario funcionarioResponsavel, String tipoEquipamento) {
+        validarData(dataAquisicao);
         this.id = contadorId++;
         this.nomeCurto = nomeCurto;
         this.descricao = descricao;
@@ -20,11 +21,17 @@ public class Equipamento {
         this.disponibilidade = "Disponível";
     }
 
+    private void validarData(String dataAquisicao) {
+        if (!dataAquisicao.matches("\\d{2}[/.]\\d{2}[/.]\\d{4}")) {
+            throw new IllegalArgumentException("Data de aquisição deve estar no formato 00/00/0000 ou 00.00.0000");
+        }
+    }
+
     public int getId() {
         return id;
     }
 
-    public String getNomeCurto() {
+    public static String getNomeCurto() {
         return nomeCurto;
     }
 
@@ -44,7 +51,7 @@ public class Equipamento {
         return valorAquisicao;
     }
 
-    public String getFuncionarioResponsavel() {
+    public Funcionario getFuncionarioResponsavel() {
         return funcionarioResponsavel;
     }
 
