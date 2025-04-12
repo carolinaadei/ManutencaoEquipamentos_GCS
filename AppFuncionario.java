@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 public class AppFuncionario {
     static Scanner in = new Scanner(System.in);
-    private static final List<Funcionario> funcionarios = new ArrayList<>();
+    public static final List<Funcionario> funcionarios = new ArrayList<>();
+
+    public AppFuncionario() {
+    }
 
     public void executar() {
         int opcao;
@@ -49,10 +52,8 @@ public class AppFuncionario {
         String nome = in.nextLine();
         System.out.println("Informe o email do funcionário: ");
         String email = in.nextLine();
-
         Funcionario f = new Funcionario(nome, email);
         funcionarios.add(f);
-
         System.out.println("Funcionário cadastrado com sucesso! Matrícula: " + f.getMatricula());
     }
 
@@ -60,7 +61,6 @@ public class AppFuncionario {
         System.out.print("Informe a matrícula do funcionário que deseja renomear: ");
         int matricula = in.nextInt();
         in.nextLine();
-
         Funcionario f = localizarFuncionarioPorMatricula(matricula);
         if (f == null) {
             System.out.println("Funcionário não encontrado!");
@@ -77,7 +77,6 @@ public class AppFuncionario {
         System.out.print("Informe a matrícula do funcionário que deseja alterar o email: ");
         int matricula = in.nextInt();
         in.nextLine();
-
         Funcionario f = localizarFuncionarioPorMatricula(matricula);
         if (f == null) {
             System.out.println("Funcionário não encontrado!");
@@ -99,7 +98,6 @@ public class AppFuncionario {
         System.out.print("Opção: ");
         int opcao = in.nextInt();
         in.nextLine();
-
         switch (opcao) {
             case 1:
                 localizarFuncionarioPeloNome();
@@ -117,18 +115,16 @@ public class AppFuncionario {
         }
     }
 
-    public Funcionario localizarFuncionarioPeloNome() {
+    public static Funcionario localizarFuncionarioPeloNome() {
         System.out.print("Digite o nome do funcionário: ");
         String busca = in.nextLine().toLowerCase();
         List<Funcionario> encontrados = new ArrayList<>();
-
         for (Funcionario f : funcionarios) {
             if (f.getNome().toLowerCase().contains(busca)) {
                 exibirFuncionarioSimples(f);
                 encontrados.add(f);
             }
         }
-
         if (encontrados.isEmpty()) {
             System.out.println("Nenhum funcionário encontrado.");
             return null;
@@ -141,14 +137,12 @@ public class AppFuncionario {
         System.out.print("Digite parte do email: ");
         String busca = in.nextLine().toLowerCase();
         List<Funcionario> encontrados = new ArrayList<>();
-
         for (Funcionario f : funcionarios) {
             if (f.getEmail().toLowerCase().contains(busca)) {
                 exibirFuncionarioSimples(f);
                 encontrados.add(f);
             }
         }
-
         if (encontrados.isEmpty()) {
             System.out.println("Nenhum funcionário encontrado.");
         } else {
@@ -160,14 +154,12 @@ public class AppFuncionario {
         System.out.print("Digite parte da matrícula: ");
         String termo = in.nextLine();
         List<Funcionario> encontrados = new ArrayList<>();
-
         for (Funcionario f : funcionarios) {
             if (String.valueOf(f.getMatricula()).contains(termo)) {
                 exibirFuncionarioSimples(f);
                 encontrados.add(f);
             }
         }
-
         if (encontrados.isEmpty()) {
             System.out.println("Nenhum funcionário encontrado.");
         } else {
@@ -175,11 +167,10 @@ public class AppFuncionario {
         }
     }
 
-    private Funcionario confirmarFuncionarioPorMatricula(List<Funcionario> lista) {
+    private static Funcionario confirmarFuncionarioPorMatricula(List<Funcionario> lista) {
         System.out.print("Confirme o funcionário desejado pela matrícula: ");
         int confirmacao = in.nextInt();
         in.nextLine();
-
         Funcionario escolhido = localizarFuncionarioPorMatricula(confirmacao);
         if (escolhido != null && lista.contains(escolhido)) {
             return escolhido;
@@ -189,7 +180,7 @@ public class AppFuncionario {
         }
     }
 
-    public Funcionario localizarFuncionarioPorMatricula(int matricula) {
+    public static Funcionario localizarFuncionarioPorMatricula(int matricula) {
         for (Funcionario f : funcionarios) {
             if (f.getMatricula() == matricula) {
                 return f;
@@ -204,14 +195,13 @@ public class AppFuncionario {
                 " | Email: " + f.getEmail());
         System.out.println("→ Histórico de nomes: " + f.getHistoricoNomes());
         System.out.println("→ Histórico de emails: " + f.getHistoricoEmails());
-
         List<Equipamento> equipamentos = AppEquipamento.getEquipamento(f.getNome());
         if (equipamentos.isEmpty()) {
             System.out.println("→ Nenhum equipamento associado.");
         } else {
             System.out.println("→ Equipamentos associados:");
             for (Equipamento e : equipamentos) {
-                System.out.println(" - " + e.getNomeCurto() +
+                System.out.println("  - " + e.getNomeCurto() +
                         " | Tipo: " + e.getTipoEquipamento() +
                         " | Status: " + e.getDisponibilidade());
             }
