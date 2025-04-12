@@ -27,8 +27,8 @@ public class Main {
                     appEquipamento.executar();
                     break;
                 case 3:
-                     appManutencao.executar();
-                     break;
+                    appManutencao.executar();
+                    break;
                 default:
                     System.out.println("Opção inválida, tente novamente.");
                     break;

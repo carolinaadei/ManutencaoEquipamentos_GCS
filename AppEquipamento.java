@@ -4,13 +4,15 @@ import java.util.Scanner;
 
 public class AppEquipamento {
     private static ArrayList<Equipamento> equipamentos = new ArrayList<>();
-    private Equipamento equipamento;
-    private Funcionario funcionario;
+    private AppManutencao appManutencao;
     private AppFuncionario appFuncionario;
+    private Funcionario funcionario;
     Scanner in = new Scanner(System.in);
 
     public AppEquipamento() {
         this.appFuncionario = new AppFuncionario();
+        this.appManutencao = new AppManutencao();
+        this.funcionario = funcionario;
     }
 
     public static List<Equipamento> getEquipamento(String nomeCurto) {
@@ -43,6 +45,9 @@ public class AppEquipamento {
                 case 4:
                     localizarEquipamento();
                     break;
+                case 5:
+                    relatorioEquipamento();
+                    break;
                 default:
                     System.out.println("Opção inválida");
             }
@@ -55,6 +60,8 @@ public class AppEquipamento {
         System.out.println("2 - Editar descrição do equipamento");
         System.out.println("3 - Marcar disponibilidade do equipamento");
         System.out.println("4 - Localizar equipamento");
+        System.out.println("5 - Criar relatório do equipamento");
+        System.out.println("6 - Equipamentos inativos: "); // Samantha
         System.out.println("0 - Sair");
     }
 
@@ -81,7 +88,8 @@ public class AppEquipamento {
         String disponibilidade = in.nextLine();
 
         try {
-            Equipamento e = new Equipamento(nomeCurto, descricao, dataAquisicao, valorAquisicao, funcionarioResponsavel, tipoEquipamento);
+            Equipamento e = new Equipamento(nomeCurto, descricao, dataAquisicao, valorAquisicao, funcionarioResponsavel,
+                    tipoEquipamento);
             e.setDisponibilidade(disponibilidade);
             equipamentos.add(e);
             System.out.println("Equipamento cadastrado com sucesso! Identificador: " + e.getId());
@@ -90,7 +98,7 @@ public class AppEquipamento {
         }
     }
 
-    private Equipamento buscarEquipamentoPorId(int id) {
+    static Equipamento buscarEquipamentoPorId(int id) {
         for (Equipamento e : equipamentos) {
             if (e.getId() == id) {
                 return e;
@@ -110,7 +118,7 @@ public class AppEquipamento {
         }
         System.out.print("Informe a nova descrição: ");
         String novaDescricao = in.nextLine();
-        equipamento.setDescricao(novaDescricao);
+        equipamento.getDescricao();
         System.out.println("Descrição atualizada com sucesso!");
     }
 
@@ -127,6 +135,21 @@ public class AppEquipamento {
         String disponibilidade = in.nextLine();
         equipamento.setDisponibilidade(disponibilidade);
         System.out.println("Disponibilidade do equipamento alterada com sucesso!");
+    }
+
+    public void relatorioEquipamento() {
+        for (Equipamento eq : equipamentos) {
+            int manutencoesRealizadas = 0;
+            for (Manutencao m : appManutencao.getManutencoes()) {
+                if (m.getEquipamento().getId() == eq.getId()) {
+                    manutencoesRealizadas++;
+                }
+            }
+            System.out.println("Equipamento: " + eq.getNomeCurto());
+            System.out.println("Funcionário Responsável: " + eq.getFuncionarioResponsavel().getNome());
+            System.out.println("Total de manutenções: " + manutencoesRealizadas);
+            appManutencao.isEmManutencao(eq);
+        }
     }
 
     private void localizarEquipamentoPeloId() {

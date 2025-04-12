@@ -9,8 +9,10 @@ public class Equipamento {
     private static int contadorId = 1;
     private String disponibilidade;
     private boolean manutencao = false;
+    private boolean disponibilidadeAtualizada;
 
-    public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao, Funcionario funcionarioResponsavel, String tipoEquipamento) {
+    public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao,
+            Funcionario funcionarioResponsavel, String tipoEquipamento) {
         this.id = contadorId++;
         this.nomeCurto = nomeCurto;
         this.descricao = descricao;
@@ -21,6 +23,7 @@ public class Equipamento {
         this.tipoEquipamento = tipoEquipamento;
         this.disponibilidade = disponibilidade;
         this.manutencao = manutencao;
+
     }
 
     private void validarData(String dataAquisicao) {
@@ -31,6 +34,15 @@ public class Equipamento {
 
     public void setDisponibilidade(String disponibilidade) {
         this.disponibilidade = disponibilidade;
+
+    }
+
+    public boolean isDisponibilidadeAtualizada() {
+        return disponibilidadeAtualizada;
+    }
+
+    public void setDisponibilidadeAtualizada(boolean disponibilidadeAtualizada) {
+        this.disponibilidadeAtualizada = disponibilidadeAtualizada;
     }
 
     public int getId() {
@@ -77,8 +89,10 @@ public class Equipamento {
 
         return manutencao;
     }
+
     public void setEmManutencao(boolean manutencao) {
 
         this.manutencao = manutencao;
     }
+
 }

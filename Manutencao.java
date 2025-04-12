@@ -9,8 +9,8 @@ public class Manutencao {
     private LocalDate dataSaida;
     private Funcionario funcionarioResponsavel;
 
-
-    public Manutencao(Equipamento equipamento, String status, boolean isEmManutencao, String descricaoProblema, LocalDate dataEntrada, LocalDate dataSaida, Funcionario funcionarioResponsavel) {
+    public Manutencao(Equipamento equipamento, String status, boolean isEmManutencao, String descricaoProblema,
+            LocalDate dataEntrada, LocalDate dataSaida, Funcionario funcionarioResponsavel) {
         this.equipamento = equipamento;
         this.status = status;
         this.isEmManutencao = isEmManutencao;
@@ -30,6 +30,10 @@ public class Manutencao {
 
     public String getStatus() {
         return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public boolean isEmManutencao() {
@@ -63,4 +67,5 @@ public class Manutencao {
                 ". Funcionário Responsável pelo Equipamento: " + funcionarioResponsavel.getNome() +
                 ".";
     }
+
 }

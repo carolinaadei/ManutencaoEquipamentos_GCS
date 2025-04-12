@@ -1,16 +1,19 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate;
 
 public class AppManutencao {
     private ArrayList<Manutencao> manutencoes = new ArrayList<>();
     private Equipamento equipamento;
     private Funcionario funcionario;
     private AppEquipamento appEquipamento;
+    private AtualizaManutencao atualizaManutencao;
+
     Scanner in = new Scanner(System.in);
 
     public AppManutencao() {
         this.appEquipamento = appEquipamento;
+        this.atualizaManutencao = new AtualizaManutencao(this);
     }
 
     public ArrayList<Manutencao> getManutencoes() {
@@ -29,6 +32,7 @@ public class AppManutencao {
                     novaManutencao();
                     break;
                 case 2:
+                    atualizaManutencao.alterarDisponibilidadeEquipamento();
                     break;
                 case 3:
                     exibirManutencaoMaisRecente();
@@ -57,9 +61,13 @@ public class AppManutencao {
         Manutencao manutencaoMaisRecente = null;
 
         for (Manutencao m : manutencoes) {
+            System.out.println("Comparando ID do Equipamento: " + equipamento.getId() + " com ID da Manutenção: "
+                    + m.getEquipamento().getId());
+
             if (m.getEquipamento().getId() == equipamento.getId()) {
-                if (manutencaoMaisRecente == null ||
-                        m.getDataEntrada().isAfter(manutencaoMaisRecente.getDataEntrada())) {
+                System.out.println("Encontrado equipamento com ID: " + equipamento.getId());
+                if (manutencaoMaisRecente == null
+                        || m.getDataEntrada().isAfter(manutencaoMaisRecente.getDataEntrada())) {
                     manutencaoMaisRecente = m;
                 }
             }
@@ -67,7 +75,6 @@ public class AppManutencao {
 
         if (manutencaoMaisRecente != null) {
             String status = manutencaoMaisRecente.getStatus();
-
             if (!status.equalsIgnoreCase("concluída")) {
                 System.out.println("O equipamento está em manutenção - status: " + status);
                 return true;
@@ -91,6 +98,7 @@ public class AppManutencao {
     }
 
     private void novaManutencao() {
+
         LocalDate dataEntrada = gerarDataAtual();
         LocalDate dataSaida = gerarDataSaida();
         String estado = "Solicitada";
@@ -127,8 +135,7 @@ public class AppManutencao {
                 descricaoProblema,
                 dataEntrada,
                 dataSaida,
-                funcionario
-        );
+                funcionario);
 
         manutencoes.add(nova);
         System.out.println("Manutenção registrada com sucesso!");
@@ -140,6 +147,26 @@ public class AppManutencao {
         int idEquipamento = in.nextInt();
         in.nextLine();
 
+        Manutencao manutencaoMaisRecente = null;
+
+        for (Manutencao m : manutencoes) {
+            if (m.getEquipamento().getId() == idEquipamento) {
+                if (manutencaoMaisRecente == null ||
+                        m.getDataEntrada().isAfter(manutencaoMaisRecente.getDataEntrada())) {
+                    manutencaoMaisRecente = m;
+                }
+            }
+        }
+
+        if (manutencaoMaisRecente != null) {
+            System.out.println("Última manutenção: " + manutencaoMaisRecente.getDescricaoProblema() +
+                    " em " + manutencaoMaisRecente.getDataEntrada());
+        } else {
+            System.out.println("Nenhuma manutenção registrada para este equipamento.");
+        }
+    }
+
+    public void exibirUltimaManutencao(int idEquipamento) {
         Manutencao manutencaoMaisRecente = null;
 
         for (Manutencao m : manutencoes) {
