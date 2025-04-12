@@ -6,8 +6,8 @@ public class Main {
         int opcao;
 
         AppFuncionario appFuncionario = new AppFuncionario();
-        AppEquipamento appEquipamento = new AppEquipamento();
         AppManutencao appManutencao = new AppManutencao();
+        AppEquipamento appEquipamento = new AppEquipamento();
 
         do {
             System.out.println("Menu Principal");
@@ -27,17 +27,12 @@ public class Main {
                     appEquipamento.executar();
                     break;
                 case 3:
-                    appManutencao.executar();
-                    break;
-                case 0:
-                    System.out.println("Saindo do sistema...");
-                    break;
+                     appManutencao.executar();
+                     break;
                 default:
                     System.out.println("Opção inválida, tente novamente.");
                     break;
             }
         } while (opcao != 0);
-
-        in.close();
     }
 }

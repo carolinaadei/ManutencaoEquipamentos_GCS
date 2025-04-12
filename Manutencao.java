@@ -3,20 +3,25 @@ import java.time.LocalDate;
 public class Manutencao {
     private final Equipamento equipamento;
     private String status;
-    private String descricao;
+    private boolean isEmManutencao = false;
+    public String descricaoProblema;
     private LocalDate dataEntrada;
     private LocalDate dataSaida;
-    private Funcionario funcionarioResponsavelEquipamento;
-    private Funcionario funcionarioResponsavelManutencao;
+    private Funcionario funcionarioResponsavel;
 
-    public Manutencao(Equipamento equipamento, String status, String descricao, LocalDate dataEntrada, LocalDate dataSaida, Funcionario funcionarioResponsavelEquipamento, Funcionario funcionarioResponsavelManutencao) {
+
+    public Manutencao(Equipamento equipamento, String status, boolean isEmManutencao, String descricaoProblema, LocalDate dataEntrada, LocalDate dataSaida, Funcionario funcionarioResponsavel) {
         this.equipamento = equipamento;
         this.status = status;
-        this.descricao = descricao;
+        this.isEmManutencao = isEmManutencao;
+        setDescricaoProblema(descricaoProblema);
         this.dataEntrada = dataEntrada;
         this.dataSaida = dataSaida;
-        this.funcionarioResponsavelEquipamento = funcionarioResponsavelEquipamento;
-        this.funcionarioResponsavelManutencao = funcionarioResponsavelManutencao;
+        this.funcionarioResponsavel = funcionarioResponsavel;
+    }
+
+    public void setDescricaoProblema(String descricaoProblema) {
+        this.descricaoProblema = descricaoProblema;
     }
 
     public Equipamento getEquipamento() {
@@ -27,8 +32,12 @@ public class Manutencao {
         return status;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public boolean isEmManutencao() {
+        return isEmManutencao;
+    }
+
+    public String getDescricaoProblema() {
+        return descricaoProblema;
     }
 
     public LocalDate getDataEntrada() {
@@ -39,47 +48,19 @@ public class Manutencao {
         return dataSaida;
     }
 
-    public Funcionario getFuncionarioResponsavelEquipamento() {
-        return funcionarioResponsavelEquipamento;
-    }
-
-    public Funcionario getFuncionarioResponsavelManutencao() {
-        return funcionarioResponsavelManutencao;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public void setDataEntrada(LocalDate dataEntrada) {
-        this.dataEntrada = dataEntrada;
-    }
-
-    public void setDataSaida(LocalDate dataSaida) {
-        this.dataSaida = dataSaida;
-    }
-
-    public void setFuncionarioResponsavelEquipamento(Funcionario responsavelEquipamento) {
-        this.funcionarioResponsavelEquipamento = responsavelEquipamento;
-    }
-
-    public void setFuncionarioResponsavelManutencao(Funcionario responsavelManutencao) {
-        this.funcionarioResponsavelManutencao = responsavelManutencao;
+    public Funcionario getFuncionarioResponsavel() {
+        return funcionarioResponsavel;
     }
 
     public String toString() {
         return "Manutenção:" +
                 " Equipamento: " + equipamento.getNomeCurto() +
                 ". Status: " + status +
-                ". Descrição: " + descricao +
+                ". Está agora em manutenção: " + isEmManutencao +
+                ". Descrição: " + descricaoProblema +
                 ". Data de Entrada: " + dataEntrada +
                 ". Data de Saída: " + dataSaida +
-                ". Funcionário Responsável pelo Equipamento: " + funcionarioResponsavelEquipamento.getNome() +
-                ". Funcionário Responsável pela Manutenção: " + funcionarioResponsavelManutencao.getNome() +
+                ". Funcionário Responsável pelo Equipamento: " + funcionarioResponsavel.getNome() +
                 ".";
     }
 }
