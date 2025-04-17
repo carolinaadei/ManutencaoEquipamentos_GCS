@@ -61,7 +61,7 @@ public class AppEquipamento {
         System.out.println("3 - Marcar disponibilidade do equipamento");
         System.out.println("4 - Localizar equipamento");
         System.out.println("5 - Criar relatório do equipamento");
-        System.out.println("6 - Equipamentos inativos: "); // Samantha
+        System.out.println("6 - Equipamentos inativos: ");
         System.out.println("0 - Sair");
     }
 
@@ -271,6 +271,21 @@ public class AppEquipamento {
             }
         }
         System.out.println("ID não corresponde a nenhum equipamento listado.");
+    }
+
+    private void registrarEquipamentoEstragado() {
+        System.out.print("Informe o ID do equipamento que está estragado: ");
+        int id = in.nextInt();
+        in.nextLine();
+        Equipamento equipamento = buscarEquipamentoPorId(id);
+        if (equipamento == null) {
+            System.out.println("Equipamento não encontrado!");
+            return;
+        }else
+
+        equipamento.setEstragado(true);
+        equipamento.setDisponibilidade("Indisponível");
+        System.out.println("Equipamento registrado como estragado.");
     }
 
     private void localizarEquipamento() {
