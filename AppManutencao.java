@@ -41,6 +41,9 @@ public class AppManutencao {
                     break;
                 case 5:
                     break;
+                    case 6:
+                        listarEquipamentosEmManutencao();
+                        break;
                 default:
                     System.out.println("Opção inválida");
             }
@@ -54,6 +57,7 @@ public class AppManutencao {
         System.out.println("3 - Exibir a última manutenção de um equipamento");
         System.out.println("4 - Exibir todas as manutenções de um equipamento");
         System.out.println("5 - Deshabilitar um equipamento");
+        System.out.println("6 - Listar equipamentos em manutenção");
         System.out.println("0 - Sair");
     }
 
@@ -184,5 +188,9 @@ public class AppManutencao {
         } else {
             System.out.println("Nenhuma manutenção registrada para este equipamento.");
         }
+    }
+    public void listarEquipamentosEmManutencao() {
+        ControleManutencao controleManutencao = new ControleManutencao(manutencoes);
+        controleManutencao.listarEquipamentosEmManutencao();
     }
 }
