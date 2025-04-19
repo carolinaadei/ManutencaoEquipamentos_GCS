@@ -61,7 +61,7 @@ public class AppEquipamento {
         System.out.println("3 - Marcar disponibilidade do equipamento");
         System.out.println("4 - Localizar equipamento");
         System.out.println("5 - Criar relatório do equipamento");
-        System.out.println("6 - Equipamentos inativos: ");
+        System.out.println("6 - Equipamentos inativos: "); // Samantha
         System.out.println("0 - Sair");
     }
 

@@ -12,6 +12,7 @@ public class Equipamento {
     private boolean disponibilidadeAtualizada;
     private boolean estragado = false;
 
+
     public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao,
             Funcionario funcionarioResponsavel, String tipoEquipamento) {
         this.id = contadorId++;
@@ -95,7 +96,6 @@ public class Equipamento {
 
         this.manutencao = manutencao;
     }
-
     public boolean isEstragado() {
         return estragado;
     }
