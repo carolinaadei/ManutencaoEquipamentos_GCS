@@ -216,8 +216,8 @@ public class AppFuncionario {
                 " | Matrícula: " + f.getMatricula() +
                 " | Email: " + f.getEmail());
     }
-}
 
-public class AppFuncionario {
+    public class AppFuncionario {
 
-}
+    }
+
