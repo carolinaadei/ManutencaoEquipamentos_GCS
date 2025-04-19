@@ -214,7 +214,3 @@ public class AppFuncionario {
                 " | Email: " + f.getEmail());
     }
 }
-
-public class AppFuncionario {
-
-}
