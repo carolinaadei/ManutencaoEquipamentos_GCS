@@ -10,6 +10,8 @@ public class Equipamento {
     private String disponibilidade;
     private boolean manutencao = false;
     private boolean disponibilidadeAtualizada;
+    private boolean estragado = false;
+
 
     public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao,
             Funcionario funcionarioResponsavel, String tipoEquipamento) {
@@ -93,6 +95,13 @@ public class Equipamento {
     public void setEmManutencao(boolean manutencao) {
 
         this.manutencao = manutencao;
+    }
+    public boolean isEstragado() {
+        return estragado;
+    }
+
+    public void setEstragado(boolean estragado) {
+        this.estragado = estragado;
     }
 
 }

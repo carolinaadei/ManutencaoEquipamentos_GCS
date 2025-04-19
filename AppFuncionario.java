@@ -29,6 +29,9 @@ public class AppFuncionario {
                 case 4:
                     menuLocalizarFuncionario();
                     break;
+                case 5:
+                    registrarEquipamentoEstragado();
+                    break;
                 case 0:
                     System.out.println("Encerrando o programa.");
                     break;

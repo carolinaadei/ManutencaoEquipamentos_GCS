@@ -273,6 +273,21 @@ public class AppEquipamento {
         System.out.println("ID não corresponde a nenhum equipamento listado.");
     }
 
+    private void registrarEquipamentoEstragado() {
+        System.out.print("Informe o ID do equipamento que está estragado: ");
+        int id = in.nextInt();
+        in.nextLine();
+        Equipamento equipamento = buscarEquipamentoPorId(id);
+        if (equipamento == null) {
+            System.out.println("Equipamento não encontrado!");
+            return;
+        }else
+
+        equipamento.setEstragado(true);
+        equipamento.setDisponibilidade("Indisponível");
+        System.out.println("Equipamento registrado como estragado.");
+    }
+
     private void localizarEquipamento() {
         int selecionar;
         do {

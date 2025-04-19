@@ -44,6 +44,7 @@ public class AppManutencao {
                     case 6:
                         listarEquipamentosEmManutencao();
                         break;
+
                 default:
                     System.out.println("Opção inválida");
             }
