@@ -11,6 +11,7 @@ public class Equipamento {
     private boolean manutencao = false;
     private boolean disponibilidadeAtualizada;
     private boolean estragado = false;
+    private String motivoDesabilitar = null;
 
 
     public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao,
@@ -25,7 +26,6 @@ public class Equipamento {
         this.tipoEquipamento = tipoEquipamento;
         this.disponibilidade = disponibilidade;
         this.manutencao = manutencao;
-
     }
 
     private void validarData(String dataAquisicao) {
@@ -104,4 +104,10 @@ public class Equipamento {
         this.estragado = estragado;
     }
 
+    public String getMotivoDesabilitar() {
+        return motivoDesabilitar;
+    }
+
+    public void setMotivoDesabilitar(String motivoDesabilitar) {
+        this.motivoDesabilitar = motivoDesabilitar;
 }

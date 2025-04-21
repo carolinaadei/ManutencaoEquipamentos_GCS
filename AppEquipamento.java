@@ -8,7 +8,6 @@ public class AppEquipamento {
     private AppFuncionario appFuncionario;
     private Funcionario funcionario;
     Scanner in = new Scanner(System.in);
-
     public AppEquipamento() {
         this.appFuncionario = new AppFuncionario();
         this.appManutencao = new AppManutencao();
@@ -48,6 +47,13 @@ public class AppEquipamento {
                 case 5:
                     relatorioEquipamento();
                     break;
+                case 6:
+                    listarEquipamentosDesabilitados();
+                    break;
+                case 7:
+                    registrarEquipamentoEstragado();
+                    break;
+
                 default:
                     System.out.println("Opção inválida");
             }
@@ -61,7 +67,8 @@ public class AppEquipamento {
         System.out.println("3 - Marcar disponibilidade do equipamento");
         System.out.println("4 - Localizar equipamento");
         System.out.println("5 - Criar relatório do equipamento");
-        System.out.println("6 - Equipamentos inativos: "); // Samantha
+        System.out.println("6 - Equipamentos inativos: ");
+        System.out.println("7 - Registrar equipamento como desabilitado");
         System.out.println("0 - Sair");
     }
 
@@ -273,19 +280,36 @@ public class AppEquipamento {
         System.out.println("ID não corresponde a nenhum equipamento listado.");
     }
 
-    private void registrarEquipamentoEstragado() {
-        System.out.print("Informe o ID do equipamento que está estragado: ");
-        int id = in.nextInt();
-        in.nextLine();
-        Equipamento equipamento = buscarEquipamentoPorId(id);
-        if (equipamento == null) {
-            System.out.println("Equipamento não encontrado!");
-            return;
-        }else
+        private void registrarEquipamentoDesabilitado() {
+            System.out.print("Informe o ID do equipamento que está desabilitado: ");
+            int id = in.nextInt();
+            in.nextLine();
+            Equipamento equipamento = buscarEquipamentoPorId(id);
+            if (equipamento == null) {
+                System.out.println("Equipamento não encontrado!");
+                return;
+            }
 
-        equipamento.setEstragado(true);
-        equipamento.setDisponibilidade("Indisponível");
-        System.out.println("Equipamento registrado como estragado.");
+            System.out.print("Informe o motivo da desativação (ex: estragado, perdido, vendido, etc): ");
+            String motivo = in.nextLine();
+
+            equipamento.setEstragado(true);
+            equipamento.setDisponibilidade("Indisponível");
+            equipamento.setMotivoDesabilitar(motivo);
+
+            System.out.println("Equipamento registrado como desabilitado. Motivo: " + motivo);
+        }
+
+    private void listarEquipamentosDesabilitados() {
+        System.out.println("Equipamentos desabilitados (estragados, perdidos, vendidos, etc):");
+        for (Equipamento e : equipamentos) {
+            if (e.isEstragado()) {
+                System.out.println("→ ID: " + e.getId() +
+                        " | Nome: " + e.getNomeCurto() +
+                        " | Situação: " + e.getDisponibilidade() +
+                        " | Motivo: " + e.getMotivoDesabilitar());
+            }
+        }
     }
 
     private void localizarEquipamento() {
