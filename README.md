@@ -1,3 +1,5 @@
+Funcionalidade de novo registro da manutenção: Bruno Dutra Prudencio
+
 Funcionalidade de relatório: Carolina de Souza Gonçalves
 
 Funcionalidade de atualização do pedido de manutenção: Sthefany Marques da Fonsceca
