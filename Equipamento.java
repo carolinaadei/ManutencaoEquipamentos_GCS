@@ -1,21 +1,20 @@
 public class Equipamento {
-    public static Funcionario funcionarioResponsavel;
+    private Funcionario funcionarioResponsavel;
     private int id;
-    private static String nomeCurto;
+    private String nomeCurto;
     private String descricao;
     private String dataAquisicao;
     private final double valorAquisicao;
     private final String tipoEquipamento;
     private static int contadorId = 1;
     private String disponibilidade;
-    private boolean manutencao = false;
+    private static boolean manutencao = false;
     private boolean disponibilidadeAtualizada;
     private boolean estragado = false;
     private String motivoDesabilitar = null;
 
-
     public Equipamento(String nomeCurto, String descricao, String dataAquisicao, double valorAquisicao,
-            Funcionario funcionarioResponsavel, String tipoEquipamento) {
+                       Funcionario funcionarioResponsavel, String tipoEquipamento) {
         this.id = contadorId++;
         this.nomeCurto = nomeCurto;
         this.descricao = descricao;
@@ -24,8 +23,8 @@ public class Equipamento {
         this.valorAquisicao = valorAquisicao;
         this.funcionarioResponsavel = funcionarioResponsavel;
         this.tipoEquipamento = tipoEquipamento;
-        this.disponibilidade = disponibilidade;
-        this.manutencao = manutencao;
+        this.disponibilidade = "Disponível";
+        this.manutencao = false;
     }
 
     private void validarData(String dataAquisicao) {
@@ -36,7 +35,6 @@ public class Equipamento {
 
     public void setDisponibilidade(String disponibilidade) {
         this.disponibilidade = disponibilidade;
-
     }
 
     public boolean isDisponibilidadeAtualizada() {
@@ -48,54 +46,45 @@ public class Equipamento {
     }
 
     public int getId() {
-
         return id;
     }
 
     public String getNomeCurto() {
-
         return nomeCurto;
     }
 
     public String getDescricao() {
-
         return descricao;
     }
 
     public String getDataAquisicao() {
-
         return dataAquisicao;
     }
 
     public double getValorAquisicao() {
-
         return valorAquisicao;
     }
 
     public Funcionario getFuncionarioResponsavel() {
-
         return funcionarioResponsavel;
     }
 
     public String getTipoEquipamento() {
-
         return tipoEquipamento;
     }
 
     public String getDisponibilidade() {
-
         return disponibilidade;
     }
 
-    public boolean isEmManutencao() {
-
+    public static boolean getManutencao() {
         return manutencao;
     }
 
     public void setEmManutencao(boolean manutencao) {
-
         this.manutencao = manutencao;
     }
+
     public boolean isEstragado() {
         return estragado;
     }
@@ -110,4 +99,9 @@ public class Equipamento {
 
     public void setMotivoDesabilitar(String motivoDesabilitar) {
         this.motivoDesabilitar = motivoDesabilitar;
+    }
+
+    public void setDescricao(String novaDescricao) {
+        descricao = novaDescricao;
+    }
 }

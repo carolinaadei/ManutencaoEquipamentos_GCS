@@ -1,17 +1,15 @@
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class AppEquipamento {
     private static ArrayList<Equipamento> equipamentos = new ArrayList<>();
-    private AppManutencao appManutencao;
     private AppFuncionario appFuncionario;
-    private Funcionario funcionario;
-    Scanner in = new Scanner(System.in);
+    private Scanner in = new Scanner(System.in);
+    private static Scanner in1 = new Scanner(System.in);
+
     public AppEquipamento() {
         this.appFuncionario = new AppFuncionario();
-        this.appManutencao = new AppManutencao();
-        this.funcionario = funcionario;
     }
 
     public static List<Equipamento> getEquipamento(String nomeCurto) {
@@ -51,7 +49,7 @@ public class AppEquipamento {
                     listarEquipamentosDesabilitados();
                     break;
                 case 7:
-                    registrarEquipamentoEstragado();
+                    registrarEquipamentoDesabilitado();
                     break;
 
                 default:
@@ -85,9 +83,10 @@ public class AppEquipamento {
 
         Funcionario funcionarioResponsavel = appFuncionario.localizarFuncionarioPeloNome();
         if (funcionarioResponsavel == null) {
-            System.out.println("Funcionário não encontrado!");
+            System.out.println("Erro");
             return;
         }
+        System.out.println("Funcionário selecionado: " + funcionarioResponsavel.getNome());
 
         System.out.println("Informe o tipo do equipamento (fixo ou móvel): ");
         String tipoEquipamento = in.nextLine();
@@ -125,7 +124,7 @@ public class AppEquipamento {
         }
         System.out.print("Informe a nova descrição: ");
         String novaDescricao = in.nextLine();
-        equipamento.getDescricao();
+        equipamento.setDescricao(novaDescricao);
         System.out.println("Descrição atualizada com sucesso!");
     }
 
@@ -147,7 +146,7 @@ public class AppEquipamento {
     public void relatorioEquipamento() {
         for (Equipamento eq : equipamentos) {
             int manutencoesRealizadas = 0;
-            for (Manutencao m : appManutencao.getManutencoes()) {
+            for (Manutencao m : AppManutencao.getManutencoes()) {
                 if (m.getEquipamento().getId() == eq.getId()) {
                     manutencoesRealizadas++;
                 }
@@ -155,7 +154,7 @@ public class AppEquipamento {
             System.out.println("Equipamento: " + eq.getNomeCurto());
             System.out.println("Funcionário Responsável: " + eq.getFuncionarioResponsavel().getNome());
             System.out.println("Total de manutenções: " + manutencoesRealizadas);
-            appManutencao.isEmManutencao(eq);
+            AppManutencao.isEmManutencao(eq);
         }
     }
 
@@ -280,27 +279,27 @@ public class AppEquipamento {
         System.out.println("ID não corresponde a nenhum equipamento listado.");
     }
 
-        private void registrarEquipamentoDesabilitado() {
-            System.out.print("Informe o ID do equipamento que está desabilitado: ");
-            int id = in.nextInt();
-            in.nextLine();
-            Equipamento equipamento = buscarEquipamentoPorId(id);
-            if (equipamento == null) {
-                System.out.println("Equipamento não encontrado!");
-                return;
-            }
-
-            System.out.print("Informe o motivo da desativação (ex: estragado, perdido, vendido, etc): ");
-            String motivo = in.nextLine();
-
-            equipamento.setEstragado(true);
-            equipamento.setDisponibilidade("Indisponível");
-            equipamento.setMotivoDesabilitar(motivo);
-
-            System.out.println("Equipamento registrado como desabilitado. Motivo: " + motivo);
+    public static void registrarEquipamentoDesabilitado() {
+        System.out.print("Informe o ID do equipamento que está desabilitado: ");
+        int id = AppEquipamento.in1.nextInt();
+        AppEquipamento.in1.nextLine();
+        Equipamento equipamento = buscarEquipamentoPorId(id);
+        if (equipamento == null) {
+            System.out.println("Equipamento não encontrado!");
+            return;
         }
 
-    private void listarEquipamentosDesabilitados() {
+        System.out.print("Informe o motivo da desativação (ex: estragado, perdido, vendido, etc): ");
+        String motivo = AppEquipamento.in1.nextLine();
+
+        equipamento.setEstragado(true);
+        equipamento.setDisponibilidade("Indisponível");
+        equipamento.setMotivoDesabilitar(motivo);
+
+        System.out.println("Equipamento registrado como desabilitado. Motivo: " + motivo);
+    }
+
+    public static void listarEquipamentosDesabilitados() {
         System.out.println("Equipamentos desabilitados (estragados, perdidos, vendidos, etc):");
         for (Equipamento e : equipamentos) {
             if (e.isEstragado()) {
@@ -351,15 +350,15 @@ public class AppEquipamento {
     }
 
     private void menuLocalizar() {
-        System.out.println("Menu para localização de Equipamentos: ");
-        System.out.println("1 - Localizar um equipamento pelo ID: ");
-        System.out.println("2 - Localizar um equipamento pelo nome: ");
-        System.out.println("3 - Localizar um equipamento pela descrição: ");
-        System.out.println("4 - Localizar um equipamento pela data de aquisição: ");
-        System.out.println("5 - Localizar um equipamento pelo valor de aquisição: ");
-        System.out.println("6 - Localizar equipamento pelo funcionário responsável: ");
-        System.out.println("7 - Localizar equipamento pelo tipo de equipamento: ");
-        System.out.println("8 - Localizar equipamento pela disponibilidade: ");
+        System.out.println("Menu para localização de Equipamentos");
+        System.out.println("1 - Localizar um equipamento pelo ID");
+        System.out.println("2 - Localizar um equipamento pelo nome");
+        System.out.println("3 - Localizar um equipamento pela descrição");
+        System.out.println("4 - Localizar um equipamento pela data de aquisição");
+        System.out.println("5 - Localizar um equipamento pelo valor de aquisição");
+        System.out.println("6 - Localizar equipamento pelo funcionário responsável");
+        System.out.println("7 - Localizar equipamento pelo tipo de equipamento");
+        System.out.println("8 - Localizar equipamento pela disponibilidade");
         System.out.println("0 - Sair");
     }
 }

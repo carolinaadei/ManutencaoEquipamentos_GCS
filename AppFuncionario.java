@@ -1,13 +1,11 @@
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AppFuncionario {
     static Scanner in = new Scanner(System.in);
-    public static final List<Funcionario> funcionarios = new ArrayList<>();
-
-    public AppFuncionario() {
-    }
+    public static List<Funcionario> funcionarios = new ArrayList<>();
 
     public void executar() {
         int opcao;
@@ -28,9 +26,6 @@ public class AppFuncionario {
                     break;
                 case 4:
                     menuLocalizarFuncionario();
-                    break;
-                case 5:
-                    registrarEquipamentoEstragado();
                     break;
                 case 0:
                     System.out.println("Encerrando o programa.");
@@ -55,6 +50,7 @@ public class AppFuncionario {
         String nome = in.nextLine();
         System.out.println("Informe o email do funcionário: ");
         String email = in.nextLine();
+
         Funcionario f = new Funcionario(nome, email);
         funcionarios.add(f);
         System.out.println("Funcionário cadastrado com sucesso! Matrícula: " + f.getMatricula());
@@ -119,21 +115,71 @@ public class AppFuncionario {
     }
 
     public static Funcionario localizarFuncionarioPeloNome() {
-        System.out.print("Digite o nome do funcionário: ");
-        String busca = in.nextLine().toLowerCase();
+        System.out.print("Digite parte do nome do funcionário: ");
+        String busca = in.nextLine().trim().toLowerCase();
+
+        if (busca.isEmpty()) {
+            System.out.println("Entrada inválida. Nome não pode estar vazio.");
+            return null;
+        }
+
+        if (funcionarios == null || funcionarios.isEmpty()) {
+            System.out.println("Nenhum funcionário cadastrado.");
+            return null;
+        }
+
         List<Funcionario> encontrados = new ArrayList<>();
         for (Funcionario f : funcionarios) {
-            if (f.getNome().toLowerCase().contains(busca)) {
-                exibirFuncionarioSimples(f);
+            if (f.getNome() != null && (normalizar(f.getNome()).contains(normalizar(busca)) || f.getNome().equals(busca))) {
                 encontrados.add(f);
             }
         }
+
         if (encontrados.isEmpty()) {
             System.out.println("Nenhum funcionário encontrado.");
             return null;
-        } else {
-            return confirmarFuncionarioPorMatricula(encontrados);
         }
+
+        System.out.println("\nFuncionários encontrados (" + encontrados.size() + "):");
+        for (Funcionario f : encontrados) {
+            exibirFuncionarioSimples(f);
+        }
+
+        if (encontrados.size() == 1) {
+            return encontrados.get(0);
+        }
+
+        while (true) {
+            System.out.print("Confirme o funcionário desejado pela matrícula (ou 0 para cancelar): ");
+            String entrada = in.nextLine().trim();
+
+            int confirmacao;
+            try {
+                confirmacao = Integer.parseInt(entrada);
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Digite um número.");
+                continue;
+            }
+
+            if (confirmacao == 0) {
+                System.out.println("Operação cancelada.");
+                return null;
+            }
+
+            Funcionario escolhido = localizarFuncionarioPorMatricula(confirmacao);
+            if (escolhido != null && encontrados.contains(escolhido)) {
+                return escolhido;
+            } else {
+                System.out.println("Matrícula inválida ou não corresponde a um dos funcionários listados. Tente novamente.");
+            }
+        }
+    }
+
+    public static String normalizar(String texto) {
+        return Normalizer.normalize(texto, Normalizer.Form.NFD)
+                .replaceAll("[^\\p{ASCII}]", "")
+                .toLowerCase()
+                .trim();
     }
 
     private void localizarFuncionarioPeloEmail() {
@@ -193,20 +239,16 @@ public class AppFuncionario {
     }
 
     private static void exibirFuncionarioComEquipamentos(Funcionario f) {
-        System.out.println("Funcionário: " + f.getNome() +
-                " | Matrícula: " + f.getMatricula() +
-                " | Email: " + f.getEmail());
-        System.out.println("→ Histórico de nomes: " + f.getHistoricoNomes());
-        System.out.println("→ Histórico de emails: " + f.getHistoricoEmails());
+        System.out.println("Funcionário: " + f.getNome() + ". Matrícula: " + f.getMatricula() + ". Email: " + f.getEmail());
+        System.out.println("Nome do funcionário: " + f.getNome());
+        System.out.println("Email do funcionário: " + f.getEmail());
         List<Equipamento> equipamentos = AppEquipamento.getEquipamento(f.getNome());
         if (equipamentos.isEmpty()) {
-            System.out.println("→ Nenhum equipamento associado.");
+            System.out.println("Nenhum equipamento associado.");
         } else {
-            System.out.println("→ Equipamentos associados:");
+            System.out.println("Equipamentos associados:");
             for (Equipamento e : equipamentos) {
-                System.out.println("  - " + e.getNomeCurto() +
-                        " | Tipo: " + e.getTipoEquipamento() +
-                        " | Status: " + e.getDisponibilidade());
+                System.out.println("Nome do equipamento: " + e.getNomeCurto() + ". Tipo: " + e.getTipoEquipamento() + ". Disponibilidade: " + e.getDisponibilidade());
             }
         }
     }
@@ -216,8 +258,4 @@ public class AppFuncionario {
                 " | Matrícula: " + f.getMatricula() +
                 " | Email: " + f.getEmail());
     }
-
-    public class AppFuncionario {
-
-    }
-
+}
